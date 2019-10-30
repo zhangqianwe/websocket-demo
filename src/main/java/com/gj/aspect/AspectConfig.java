@@ -56,7 +56,7 @@ public class AspectConfig {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
-//        // 记录下请求内容
+        // 记录下请求内容
         log.info(">>>>>>>>>>Before");
         log.info("URL : " + request.getRequestURL().toString());
         log.info("HTTP_METHOD : " + request.getMethod());
