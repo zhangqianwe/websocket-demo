@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name ="keywords" content="特优生,高端学术研究,暑校,Research,国际暑期学校">
+		<meta name="description" content="特优生_高端学术研究_暑校_Research_国际暑期学校">
+		<meta name="robots" content="all">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="default">
+		<meta name="format-detection" content="telephone=no">
+		<title>登录</title>
+		<!-- CSS -->
+		<link rel="shortcut icon" type="image/ico" href="../img/favicon.ico"/>
+		<link rel="stylesheet" type="text/css" href="../css/weui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/comman.css"/>
+		<!-- JS -->
+		<script src="../js/jquery-1.12.0.min.js"></script>
+		<script src="../js/jqmd5.js"></script>
+		<script src="../js/jquery-form.js"></script>
+		<script src="../js/sha1.js"></script>
+		<script src="../js/comman.js"></script>
+		<script src="../js/weui.js"></script>
+		<script src="../js/vue.min.js"></script>
+		<style>
+			html,body{
+				height: 100%;
+				overflow: hidden;
+			}
+			input:-webkit-autofill{
+				
+			}
+			
+			#app{
+				width: 100%;
+				height: 100%;
+				background: url(../img/judge/login_banner.png) no-repeat center;
+				background-size:cover;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			.login-panel{
+				width: 560px;
+			}
+			.logo-txt{
+				background: url(../img/judge/login_topTxt.png) no-repeat center;
+				background-size:auto 183px;
+				height: 183px;
+				margin-bottom: 80px;
+			}
+			.input-row{
+				padding-left: 60px;
+				height: 40px;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 0 20px;
+				background: rgba(255,255,255,0.2);
+				border-radius: 2px;
+				cursor: pointer;
+				position: relative;
+				margin-top: 15px;
+			}
+			.input-row_phone{
+				background: url(../img/judge/login_phone.png) no-repeat left center;
+			    background-size: 9px 14px;
+			    width: 30px;
+			    height: 40px;
+			}
+			.input-row_pwd{
+				background: url(../img/judge/login_clock.png) no-repeat left center;
+			    background-size: 11px 13px;
+			    width: 30px;
+			    height: 40px;
+			}
+			.input-row.haspadding{
+				padding-right: 100px;
+			}
+			.imgcode{
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 100px;
+				height: 100%;
+				background: #CCCCCC;
+				cursor: pointer;
+			}
+			.input-border{
+				flex: 1;
+				box-sizing: border-box;
+                margin-right: 10px;
+			}
+			.input-border input{
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				outline: 0;
+				font-size: 14px;
+				color: #fff;
+			}
+			.input-row_delete{
+			    background: url(../img/judge/login_delete.png) no-repeat center;
+			    background-size: 11px 11px;
+			    width: 16px;
+			    height: 40px;
+			    transform: translateX(-50%) rotate(0);
+                transition: all .3s;
+			}
+			.btn-login{
+				display: block;
+				height: 40px;
+				font-size: 18px;
+				line-height: 40px;
+				text-align: center;
+				color: #FFFFFF;
+				background-color: #dc4851;
+				border-radius: 2px;
+				margin: 44px 0 16px 0;
+				cursor: pointer;
+			}
+			.qr-logo{
+				width: 120px;
+				height: 120px;
+				border-radius: 120px;
+				overflow: hidden;
+				margin: 10px auto;
+				margin-top: 100px;
+			}
+			.qr-logo.min{
+				width: 105px;
+				height: 105px;
+				border-radius: 105px;
+			}
+			.qr-logo img{
+				width: 100%;
+			}
+			.tip{
+				text-align: center;
+				color: #fff;
+				font-size:12px;
+				padding: 6px 0 10px 0;
+			}
+			.tip:last-child{
+				padding-top: 0;
+			}
+			.base-link{
+				text-align: center;
+				color: #fff;
+				display: block;
+				cursor: pointer;
+				font-size:12px;
+			}
+			.login_role_btn{
+				height: 40px;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				width: 100%;
+				box-sizing: border-box;
+				padding: 0 20px;
+				background: rgba(255,255,255,0.2);
+				border-radius: 2px;
+				cursor: pointer;
+				position: relative;
+			}
+			.login_changeRoleL{
+				background: url(../img/judge/login_person.png) no-repeat left center;
+				background-size:11px 12px;
+				width: 30px;
+				height: 40px;
+			}
+			.login_changeRoleM{
+				flex: 1;
+				color: #fff;
+				font-size: 14px;
+			}
+			.login_changeRoleR{
+				background: url(../img/judge/login_down.png) no-repeat center;
+				background-size:12px 7px;
+				width: 16px;
+				height: 40px;
+				transform: translateX(-50%) rotate(0);
+				transition: all .3s;
+			}
+			.login_changeRoleR.cur{
+				transform: translateX(-50%) rotate(-180deg);;
+			}
+			
+			.login_role_btn select{
+				width: 100%;
+				height: 60px;
+				border: 1px solid #ccc;
+				color: #333;
+				background-color: #f1f1f1;
+				cursor: pointer;
+				border-radius: 6px;
+			}
+			.send-code{
+				display: block;
+				width: 100%;
+				height: 36px;
+				line-height: 36px;
+				text-align: center;
+				background: #333333;
+				color: #FFFFFF;
+				font-size: 16px;
+				border-radius: 6px;
+			}
+			.send-code.disable{
+				background: #cccccc;
+			}
+			.login_content_all{
+				position: absolute;
+				width: 100%;
+				left: 0;
+				top: 40px;
+				z-index: 100;
+				
+			}
+			.login_content_all div{
+				height: 40px;
+				line-height: 40px;
+				box-sizing: border-box;
+				padding-left: 50px;
+				color: #333;
+				font-size:14px;
+				background-color: #c3c1c1;
+				border-bottom: 1px solid #999;
+			}
+			.login_content_all div:hover{
+				background-color: #999;
+			}
+			.login_content_all div:last-child{
+				border-bottom-left-radius: 2px;
+				border-bottom-right-radius: 2px;
+				border-bottom:0;
+			}
+			.login_remember_all{
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				box-sizing: border-box;
+				height: 30px;
+			}
+			.login_remember_left{
+				background: url(../img/judge/login_select.png) no-repeat left center;
+				background-size:14px 14px;
+				font-size:12px;
+				color: #fff;
+				padding-left: 28px;
+				cursor: pointer;
+			}
+			.login_remember_left.cur{
+				background: url(../img/judge/login_selectcur.png) no-repeat left center;
+				background-size:14px 14px;
+			}
+			@media screen and (max-height:750px){
+				.logo-txt{
+					background: url(../img/judge/logo-txt_change.png) no-repeat center;
+					background-size: auto 110px;
+					height: 110px;
+					margin-bottom: 50px;
+				}
+				.qr-logo{
+					margin-top: 50px;
+				}
+			}
+			@media screen and (min-height:750px) and (max-height:800px) {
+				.logo-txt{
+					background: url(../img/judge/logo-txt_change.png) no-repeat center;
+					background-size: auto 110px;
+					height: 110px;
+					margin-bottom: 50px;
+				}
+				.qr-logo{
+					margin-top: 50px;
+				}
+				
+			}
+			@media screen and (min-height:800px) and (max-height:850px){
+				.logo-txt{
+					margin-bottom: 40px;
+				}
+				.qr-logo{
+					margin-top: 50px;
+				}
+			}
+			@media screen and (min-height:850px) and (max-height:900px){
+				.qr-logo{
+					margin-top: 50px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" @click="hideSelect">
+			
+			<div class="login-panel">
+				<h1 class="logo-txt"></h1>
+				<!-- 登录 -->
+				<template v-if="viewmode==0">
+					<div class="login_role_btn" @click.stop="showSelected($event)">
+						<div class="login_changeRoleL"></div>
+						<div class="login_changeRoleM">{{roleArr[role]}}</div>
+						<div :class="isShowSelect ?'login_changeRoleR cur' : 'login_changeRoleR' "></div>
+						<div class="login_content_all" v-show="isShowSelect">
+							<div v-for="(index,item) in roleArr" @click.stop.self="clickSelect($event,item,index)">{{item}}</div>
+						</div>
+						
+						<!--<select value="我是学生" v-model="role">
+							<option>我是学生</option>
+							<option>我是教授/TA</option>
+						</select>-->
+					</div>
+					<div class="input-row">
+						<div class="input-row_phone"></div>
+						<div class="input-border">
+							<template v-if="role == 0">
+							  <input type="tel" maxlength="11" key="1" v-model="phone" :placeholder="lan.phoneHolder[useLan]" />
+							</template>
+							<template v-else>
+							  <input type="text" v-model="userName_" key="2" :placeholder="lan.phoneHolder[useLan]" />
+							</template>
+						</div>
+						<template v-if="phone != ''">
+						 <div class="input-row_delete" v-if="role == 0" @click="deleteContent(phone,'phone')"></div>
+						</template>
+						<template v-if="userName_ != ''">
+						  <div class="input-row_delete" v-if="role == 1" @click="deleteContent(userName_,'userName_')"></div>
+					    </template>
+					</div>
+					<div class="input-row">
+						<!--<label>{{lan.pwdLabel[useLan]}}</label>-->
+						<div class="input-row_pwd"></div>
+						<div class="input-border">
+							<template v-if="role == 0">
+							  <input type="password" maxlength="20" key="3" v-model="pwdStu" :placeholder="lan.pwdHolder[useLan]" />
+							</template>
+						    <template v-else>
+							   <input type="password" maxlength="20" key="4"   v-model="pwdTA" :placeholder="lan.pwdHolder[useLan]" />
+						    </template>
+						</div>
+						<template v-if="pwdStu != ''">
+						 <div class="input-row_delete" v-if="role == 0" @click="deleteContent(pwdStu,'pwdStu')"></div>
+						</template>
+						<template v-if="pwdTA != ''">
+						  <div class="input-row_delete" v-if="role == 1" @click="deleteContent(pwdTA,'pwdTA')"></div>
+					    </template>
+					</div>
+					<a class="btn-login" @click="login">{{lan.btnLoginLabel[useLan]}}</a>
+					<div class="login_remember_all">
+						<template v-if="role == 0">
+						 <div :class="isRememberStu ?'login_remember_left cur' : 'login_remember_left'" @click="rememberPwdEvent()">{{lan.remember[useLan]}}</div>
+						</template>
+						<template v-else>
+						 <div key="1" :class="isRememberPro ?'login_remember_left cur' : 'login_remember_left'" @click="rememberPwdEvent()">{{lan.remember[useLan]}}</div>
+						</template>
+						<a class="base-link" @click="forgotPwd_">{{lan.forgetPwd[useLan]}}</a>
+					</div>
+					
+				</template>
+				
+				
+				<!-- 忘记密码 -->
+				<template v-if="viewmode==1">
+					<div class="input-row">
+						<label>{{lan.telLabel[useLan]}}</label>
+						<div class="input-border">
+							<input type="tel" maxlength="11" v-model="phone" :placeholder="lan.telHolder[useLan]" />
+						</div>
+					</div>
+					<div class="input-row haspadding">
+						<label>{{lan.imgcodeLabel[useLan]}}</label>
+						<div class="input-border">
+							<input type="text" maxlength="4" v-model="imgcode" :placeholder="lan.imgcodeHolder[useLan]" />
+						</div>
+						<img class="imgcode" :src="imgcodesrc" @click="getPicCode" />
+					</div>
+					<!-- 按钮：发送验证码 -->
+					<div class="input-row">
+						<a class="send-code" :class="{'disable':timerSendCode>0}" @click="onSendCode">
+							{{timerSendCode>0 ? lan.sendcodetime[useLan].replace('#', timerSendCode) : lan.sendcode[useLan]}}
+						</a>
+					</div>
+					<div class="input-row">
+						<label>{{lan.codeLabel[useLan]}}</label>
+						<div class="input-border">
+							<input type="tel" maxlength="6" v-model="smscode" :placeholder="lan.codeHolder[useLan]" />
+						</div>
+					</div>
+					<!--<div class="input-row">
+						<label>{{lan.nameLabel[useLan]}}</label>
+						<div class="input-border">
+							<input type="text" maxlength="20" v-model="username" :placeholder="lan.nameHolder[useLan]" />
+						</div>
+					</div>-->
+					<div class="input-row">
+						<label>{{lan.newpwdLabel[useLan]}}</label>
+						<div class="input-border">
+							<input type="password" maxlength="20" v-model="newpwd" :placeholder="lan.newpwdHolder[useLan]" />
+						</div>
+					</div>
+					<a class="btn-login" @click="resetPwd">{{lan.btnok[useLan]}}</a>
+					<a class="base-link" @click="backtoLogin">{{lan.backlogin[useLan]}}</a>
+				</template>
+				<div :class="isMinheight ? 'qr-logo min' : 'qr-logo'">
+					<img :src="ImgSrc" />
+				</div>
+				<p class="tip">{{lan.qrTip[useLan]}}</p>
+				<p class="tip">{{lan.qrTipBottom[useLan]}}</p>
+				<!--<a class="base-link" @click="changeLanguage">{{lan.changeLan[useLan]}}</a>-->
+			</div>
+		</div>
+	</body>
+</html>
+<script>
+	vm = new Vue({
+		el:"#app",
+		data:{
+			userName_:'',
+			role:0,//默认登录角色是学生    0学生 1教授
+			roleArr:[],//角色数组防止以后可能多个角色
+			isShowSelect:false,//默认不展示下拉
+			lan:{
+				remember:["记住密码","Remember my account"],
+				logotxt:["特优生·高端学术研究","Special A · VIP-Research"],
+				phoneLabel:["用户名","userName"],
+				phoneHolder:["输入用户名","phone number / email address"],
+				pwdLabel:["密 码","Pwd"],
+				pwdHolder:["输入密码","input your password"],
+				telLabel:["手机号","phone"],
+				telHolder:["输入手机号","input your phone"],
+				imgcodeLabel:["验证码","ImgCode"],
+				imgcodeHolder:["输入验证码","input imgCode"],
+				codeLabel:["短信码","smsCode"],
+				codeHolder:["输入短信码","input smsCode"],
+				nameLabel:["用户名","userName"],
+				nameHolder:["输入用户名","input userName"],
+				newpwdLabel:["新密码","newPwd"],
+				newpwdHolder:["输入新密码","input newPwd"],
+				btnLoginLabel:["登录","Sign in"],
+				qrTip:["更多高端Research的信息","Scan the QR code via Wechat"],
+				qrTipBottom:["请使用微信扫码查看","for more information about VIP Research"],
+				loadtxt:["登录中", "Sign in..."],
+				loadSuccessTxt:["已登录", "Sign Success"],
+				loadFailTxt:["登录失败", "Sign Failed"],
+				changeLan:["English", "简体中文"],
+				btnok:["确定","OK"],
+				forgetPwd:["忘记密码？", "Forget the password?"],
+				backlogin:["返回登录", "back to login"],
+				sendcode:["获取验证码", "send code"],
+				sendcodetime:["#秒后可用", "enable after #s"],
+				codegetsuccess:["验证码已发送", "send success"],
+				codegeterror:["验证码发送失败", "send failed"],
+				toastUsername:["请输入用户名","enter user name"],
+				toastPwd:["请输入密码","enter password"],
+				RetrievePwd:["找回密码","Retrieve the password"],
+				RetrievePwdTxt:["如果您忘记密码，请联系您的销售或TA重新获取密码，或者电话咨询客服。<br/>客服电话：18701219088","If you forget your password, please contact your sales or TA to get the password again, Or telephone enquiry customer service. <br/>customer service telephone: 18701219088"],
+			    RetrievePwdSure:["我知道了","I know"]
+			},
+			useLan:0,
+			phone:"",
+			pwdStu:"",
+			pwdTA:"",
+			viewmode:0,
+			imgcodesrc:"",
+			imgcode:"",
+			smscode:"",
+			username:"",
+			newpwd:"",
+			timerSendCode:0,
+			isRememberStu:false,//默认第一次进来不记住密码
+			isRememberPro:false,//默认第一次进来不记住密码
+			ImgSrc:'',//二维码在高度>700时候换图
+			isMinheight:false,//默认不是最小屏幕高度
+		},
+		created:function(){
+			this.initData();
+			console.log($(window).outerHeight())
+			if($(window).outerHeight() > 800){
+				this.isMinheight = false;
+				this.ImgSrc = '../img/wechat_miniapp_qr.jpg';
+			}else{
+				this.isMinheight = true;
+				this.ImgSrc = '../img/wechat_miniapp_qrMin.png';
+			}
+		},
+		methods:{
+			//这个页面用es5o
+			//记住密码
+			rememberPwdEvent:function(){
+				this.isRememberStu = !this.isRememberStu;
+				this.isRememberPro = !this.isRememberPro;
+
+				
+			
+			},
+			//操作忘记密码这一项
+			initData:function(){
+				this.roleArr = ['Student','Professor / TA'];
+				let phone = getCookie('phone');
+				let pwdStu = getCookie('pwdStu');
+				let userName_ = getCookie('userName_');
+				let pwdTA = getCookie('pwdTA');
+				let role_ = role ? role : 3;
+				this.role = role_ != 3 ? 1 : 0;
+					if(!phone || !pwdStu ){
+						this.isRememberStu = false;
+						}else{
+							this.phone = phone ? phone : '';
+							this.pwdStu = pwdStu ? pwdStu : '';
+							this.isRememberStu = true;
+						}
+					if(!userName_ || !pwdTA){
+						this.isRememberPro = false;
+						}else{
+							this.userName_ = userName_ ? userName_ : '';
+							this.pwdTA = pwdTA ? pwdTA : '';
+							this.isRememberPro = true;
+						}
+				
+			},
+			
+			//忘记密码弹框
+			forgotPwd_:function(){
+				showAlert(this.lan.RetrievePwd[this.useLan],this.lan.RetrievePwdTxt[this.useLan],this.lan.RetrievePwdSure[this.useLan],'')
+			},
+			
+			deleteContent:function(val,name){
+				return this[name] = '';
+			},
+			
+			//点击全屏隐藏下拉
+			hideSelect:function(){
+				this.isShowSelect = false;
+			},
+			
+			//点击下拉
+			showSelected:function(e){ 
+				this.isShowSelect = !this.isShowSelect;
+				
+			},
+			
+			//点击select本身
+			clickSelect:function(e,item,index){
+			   this.role = index;
+			   this.isShowSelect = false;
+			},
+			
+			login: function(){
+				var pwdstrStu = $.md5(vm.pwdStu);
+				var pwdTA = $.md5(vm.pwdTA);
+				var sn_ = '',mn = '';
+				var obj = {};
+				
+				if(this.role == 1){
+					sn_ = '/sys';
+					mn = '/login?';
+					if(vm.userName_ == ''){
+						showToast(this.lan.toastUsername[this.useLan], "none");
+						return;
+					}
+					if(vm.pwdTA == ''){
+						showToast(this.lan.toastPwd[this.useLan], "none");
+						return;
+					}
+					obj.userName = vm.userName_;
+					obj.pwd = pwdTA;
+					clearCookie('phone');
+					clearCookie('pwdStu');
+					if(this.isRememberPro){
+						setCookie('userName_',this.userName_,168);
+					    setCookie('pwdTA',this.pwdTA,168);
+					}else{
+						clearCookie('userName_');
+					    clearCookie('pwdTA');
+					}
+					
+				}else if(this.role == 0){
+					sn_ = 'sys';
+					mn = '/login?';
+					if(vm.phone == ''){
+						showToast(this.lan.toastUsername[this.useLan], "none");
+						return;
+					}
+					if(vm.pwdStu == ''){
+						showToast(this.lan.toastPwd[this.useLan], "none");
+						return;
+					}
+					obj.phone = vm.phone;
+					obj.pwd = pwdstrStu;
+					obj.userAgent = "vipresearch";
+					clearCookie('userName_');
+					clearCookie('pwdTA');
+					if(this.isRememberStu){
+						setCookie('phone',this.phone,168);
+						setCookie('pwdStu',this.pwdStu,168);	
+					}else{
+						clearCookie('phone');
+					    clearCookie('pwdStu');
+					}
+					
+				}
+				showLoad(vm.lan.loadtxt[vm.useLan]);
+				request(sn_, mn, obj, function(data){
+					hideLoad();
+					if(data.code==0){
+						showToast(vm.lan.loadSuccessTxt[vm.useLan]);
+						setCookie("userId", data.userId, 24);
+						setCookie("token", data.token, 24);
+						setCookie("role", data.role, 24);
+						var redirect = getQuery("redirect");
+						if(redirect != null){
+							redirect = decodeURIComponent(redirect);
+							location.href = redirect;
+						}else{
+							location.href = "main.html";
+						}
+					}else{
+						showAlert(vm.lan.loadFailTxt[vm.useLan], data.msg, vm.lan.btnok[vm.useLan]);
+					}
+				})
+			},
+			changeLanguage: function(){
+				vm.useLan = vm.useLan==0 ? 1 : 0;
+			},
+			forgetPwd: function(){
+				vm.viewmode = 1;
+				vm.getPicCode();
+			},
+			backtoLogin: function(){
+				vm.viewmode = 0;
+			},
+			getPicCode: function(){
+				request("PicCode", "getPicCode", {}, function(data){
+					if(data.code==0){
+						vm.imgcodesrc = data.picUrl;
+					}
+				})
+			},
+			resetPwd: function(){
+				showLoad("修改中");
+				var newpwdmd5 = $.md5(vm.newpwd);
+				request("FrontUser", "resetPwd", {
+					phone: vm.phone,
+					code: vm.smscode,
+					newPwd: newpwdmd5,
+					userName: ""
+				}, function(data){
+					hideLoad();
+					if(data.code==0){
+						showToast("密码已修改");
+						vm.viewmode = 0;
+					}else{
+						showAlert("密码修改失败", data.msg);
+					}
+				});
+			},
+			onSendCode: function(){
+				if(vm.timerSendCode==0){
+					showLoad("loading");
+					request("Regist", "getPhoneCodeWithPic", {phone: vm.phone, picCode: vm.imgcode.toLocaleUpperCase()}, function(data){
+						hideLoad();
+						if(data.code==0){
+							showToast(vm.lan.codegetsuccess[vm.useLan]);
+							vm.timerSendCode = 60;
+							var codetimeFunc = function(){
+								vm.timerSendCode--;
+								if(vm.timerSendCode>0){
+									setTimeout(codetimeFunc,1000)
+								}
+							}
+							setTimeout(codetimeFunc,1000)
+						}else{
+							showAlert(vm.lan.codegeterror[vm.useLan], data.msg);
+						}
+					})
+				}
+			}
+		},
+		filters:{
+			//
+		}
+	})
+</script>

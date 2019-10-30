@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name ="keywords" content="特优生,高端学术研究,暑校,Research,国际暑期学校">
+    <meta name="description" content="特优生_高端学术研究_暑校_Research_国际暑期学校">
+    <meta name="robots" content="all">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="format-detection" content="telephone=no">
+    <title>Research网站模板页</title>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/weui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/comman.css"/>
+    <!--&lt;!&ndash; JS &ndash;&gt;-->
+    <script src="../js/jquery-1.12.0.min.js"></script>
+    <script src="../js/jqmd5.js"></script>
+    <script src="../js/jquery-form.js"></script>
+    <script src="../js/sha1.js"></script>
+    <script src="../js/comman.js"></script>
+    <script src="../js/weui.js"></script>
+    <script src="../js/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>{{testdata}}</p>
+</div>
+</body>
+</html>
+<script>
+    vm = new Vue({
+        el:"#app",
+        data:{
+            testdata:"请开始你的表演"
+        },
+        methods:{
+            //
+        },
+        filters:{
+            //
+        }
+    })
+
+    //所有页面（登录页除外）都要先判断是否已登录，未登录则跳转登录页，把当前页面的相对路径编码带过去，如下所示：
+    if(userID==null || token==null ){
+        var redirect = "index.html";
+        redirect = encodeURIComponent(redirect);
+        location.href = "/html/login.html?redirect="+redirect;
+    }
+
+    //获取当前时区：西区大于0，东区小于0
+    var timearea = new Date().getTimezoneOffset()/60/1000;
+    console.log(timearea); //中国是东8区，所以输出-8
+    //美国横跨西五区至西十区 timearea>=5 && timearea<=10
+
+</script>

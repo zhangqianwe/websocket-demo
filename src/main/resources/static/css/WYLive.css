@@ -1,0 +1,36 @@
+#wydiv{
+	width: 320px;
+	background: #999999;
+	position: relative;
+}
+#WY-video-container{
+	width: 320px;
+	height: 213px;
+	background: #000000;
+}
+#WY-remote-container{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 105px;
+	height: 70px;
+	/*background: rgba(0,0,0,0.3);*/
+}
+#WY-remote-container div{
+	position: absolute !important;
+	top: 0;
+	left: 0;
+}
+#wystatus{
+	box-sizing: border-box;
+	padding: 0 10px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 12px;
+	font-family: sans-serif;
+	color: #c20029;
+	background: #333333;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gj.business.mapper.businessTypeOfUserId">
+    <resultMap id="BaseResultMap" type="com.gj.business.Entity.businessTypeOfUserIdVo">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="customer_id" property="customer_id" jdbcType="INTEGER"/>
+        <result column="type_id" property="type_id" jdbcType="INTEGER"/>
+        <result column="dr" property="dr" jdbcType="INTEGER"/>
+        <result column="customer_name" property="customer_name" jdbcType="VARCHAR"/>
+    </resultMap>
+    <!--根据typeId查询客服id-->
+    <select id="findVoByTypeId" resultType="com.gj.business.Entity.businessTypeOfUserIdVo">
+      SELECT
+	*
+FROM
+	business_type_of_userId btouI
+WHERE
+	btouI.type_id = 1
+	AND btouI.dr =0
+    </select>
+
+
+</mapper>

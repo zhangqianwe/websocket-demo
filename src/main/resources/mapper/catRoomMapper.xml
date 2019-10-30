@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gj.business.mapper.catRoomMapper">
+    <resultMap id="BaseResultMap" type="com.gj.business.Entity.catRoom">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="groupId" property="groupId" jdbcType="VARCHAR"/>
+        <result column="chatRoomName" property="chat_Room_Name" jdbcType="VARCHAR"/>
+        <result column="memberList" property="member_List" jdbcType="VARCHAR"/>
+        <result column="displayNameList" property="display_Name_List" jdbcType="VARCHAR"/>
+        <result column="roomOwner" property="room_Owner" jdbcType="VARCHAR"/>
+        <result column="selfDisplayName" property="self_Display_Name" jdbcType="VARCHAR"/>
+        <result column="chatRoomNick" property="chat_Room_Nick" jdbcType="VARCHAR"/>
+        <result column="dr" property="dr" jdbcType="INTEGER"/>
+    </resultMap>
+
+
+    <insert id="insert" parameterType="com.gj.business.Entity.catRoom">
+    insert into chat_room (
+      id,
+      groupId,
+      member_List,
+      display_Name_List,
+      chat_Room_Name,
+      room_Owner,
+      self_Display_Name,
+      chat_Room_Nick,
+      dr
+      )
+    values (#{id,jdbcType=INTEGER},
+            #{groupId,jdbcType=VARCHAR},
+            #{memberList,jdbcType=VARCHAR},
+            #{displayNameList,jdbcType=VARCHAR},
+            #{chatRoomName,jdbcType=VARCHAR},
+            #{roomOwner,jdbcType=VARCHAR},
+            #{selfDisplayName,jdbcType=VARCHAR},
+            #{chatRoomNick,jdbcType=VARCHAR},
+            #{dr,jdbcType=INTEGER}
+      )
+  </insert>
+
+</mapper>
